@@ -66,7 +66,13 @@
                         <td><%= product.name %></td>
                         <td><%= product.price.toLocaleString('vi-VN') %> VNĐ</td>
                         <td><%= product.quantity %></td>
-                        <td><%= product.supplier.name %></td>
+                        <td>
+                            <% if (product.supplier && product.supplier.name) { %>
+                                <%= product.supplier.name %>
+                            <% } else { %>
+                                <span class="text-muted">Chưa có nhà cung cấp</span>
+                            <% } %>
+                        </td>
                     </tr>
                     <% }); %>
                 </tbody>

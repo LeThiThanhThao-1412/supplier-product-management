@@ -2,20 +2,31 @@ const Product = require('../models/Product');
 const Supplier = require('../models/Supplier');
 
 exports.getAllProducts = async (req, res) => {
-  const { supplier, search } = req.query;
-  let query = {};
-  
-  if (supplier) query.supplier = supplier;
-  if (search) query.name = { $regex: search, $options: 'i' };
-  
-  const products = await Product.find(query).populate('supplier');
-  const suppliers = await Supplier.find();
-  res.render('products/index', { 
-    title: 'Quản lý sản phẩm - SupplierPro',
-    products, 
-    suppliers,
-    query: req.query // Thêm biến query
-  });
+  try {
+    const { supplier, search } = req.query;
+    let query = {};
+    
+    if (supplier) query.supplier = supplier;
+    if (search) query.name = { $regex: search, $options: 'i' };
+    
+    const products = await Product.find(query).populate('supplier');
+    const suppliers = await Supplier.find();
+    
+    res.render('products/index', { 
+      title: 'Quản lý sản phẩm - SupplierPro',
+      products, 
+      suppliers,
+      query: req.query
+    });
+  } catch (error) {
+    console.error('Error getting products:', error);
+    res.render('products/index', { 
+      title: 'Quản lý sản phẩm - SupplierPro',
+      products: [], 
+      suppliers: [],
+      query: {}
+    });
+  }
 };
 exports.getProductForm = async (req, res) => {
   const suppliers = await Supplier.find();
@@ -52,8 +63,20 @@ exports.editProduct = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
-  await Product.findByIdAndUpdate(req.params.id, req.body);
-  res.redirect('/products');
+  try {
+    await Product.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/products');
+  } catch (error) {
+    console.error('Error updating product:', error);
+    const suppliers = await Supplier.find();
+    const product = await Product.findById(req.params.id);
+    res.render('products/form', { 
+      title: 'Chỉnh sửa sản phẩm - SupplierPro',
+      error: error.message, 
+      product,
+      suppliers 
+    });
+  }
 };
 
 exports.deleteProduct = async (req, res) => {

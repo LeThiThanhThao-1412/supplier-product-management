@@ -50,10 +50,17 @@
                         <td><%= product.name %></td>
                         <td><%= product.price.toLocaleString('vi-VN') %> VNĐ</td>
                         <td><%= product.quantity %></td>
-                        <td><%= product.supplier.name %></td>
+                        <td>
+                            <% if (product.supplier && product.supplier.name) { %>
+                                <%= product.supplier.name %>
+                            <% } else { %>
+                                <span class="text-muted">Chưa có nhà cung cấp</span>
+                            <% } %>
+                        </td>
                         <td>
                             <a href="/products/<%= product._id %>/edit" class="btn btn-sm btn-primary">Sửa</a>
-                            <form action="/products/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
+                            <form action="/products/<%= product._id %>" method="POST" class="d-inline">
+                                <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
                             </form>
                         </td>

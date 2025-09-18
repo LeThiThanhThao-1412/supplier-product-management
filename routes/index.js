@@ -14,11 +14,19 @@ router.get('/', async (req, res) => {
     const products = await Product.find(query).populate('supplier');
     const suppliers = await Supplier.find();
     
+    // Lấy số lượng thực tế
+    const productCount = await Product.countDocuments();
+    const supplierCount = await Supplier.countDocuments();
+    
+    // Cập nhật res.locals để layout sử dụng
+    res.locals.productCount = productCount;
+    res.locals.supplierCount = supplierCount;
+    
     res.render('index', { 
       title: 'Trang Chủ - SupplierPro',
       products, 
       suppliers, 
-      query: req.query // Đảm bảo có biến query
+      query: req.query
     });
   } catch (error) {
     console.error('Error:', error);
@@ -26,7 +34,7 @@ router.get('/', async (req, res) => {
       title: 'Trang Chủ - SupplierPro',
       products: [], 
       suppliers: [], 
-      query: {} 
+      query: {}
     });
   }
 });

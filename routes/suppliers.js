@@ -10,6 +10,6 @@ router.get('/new', supplierController.getSupplierForm);
 router.post('/', supplierController.createSupplier);
 router.get('/:id/edit', supplierController.editSupplier);
 router.put('/:id', supplierController.updateSupplier);
-router.delete('/:id', supplierController.deleteSupplier);
+router.delete('/:id', supplierController.deleteSupplier); // Giữ nguyên
 
 module.exports = router;

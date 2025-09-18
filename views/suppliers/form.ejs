@@ -5,7 +5,12 @@
                 <h4 class="card-title mb-0"><%= typeof supplier !== 'undefined' && supplier ? 'Chỉnh sửa' : 'Thêm mới' %> nhà cung cấp</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="<%= typeof supplier !== 'undefined' && supplier ? `/suppliers/${supplier._id}?_method=PUT` : '/suppliers' %>">
+                <!-- Sửa form để sử dụng method-override -->
+                <form method="POST" action="<%= typeof supplier !== 'undefined' && supplier ? `/suppliers/${supplier._id}` : '/suppliers' %>">
+                    <% if (typeof supplier !== 'undefined' && supplier) { %>
+                        <input type="hidden" name="_method" value="PUT">
+                    <% } %>
+                    
                     <div class="mb-3">
                         <label for="name" class="form-label">Tên nhà cung cấp</label>
                         <input type="text" class="form-control" id="name" name="name" value="<%= typeof supplier !== 'undefined' && supplier ? supplier.name : '' %>" required>

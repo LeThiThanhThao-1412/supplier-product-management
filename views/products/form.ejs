@@ -5,7 +5,14 @@
                 <h4 class="card-title mb-0"><%= typeof product !== 'undefined' && product ? 'Chỉnh sửa' : 'Thêm mới' %> sản phẩm</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="<%= typeof product !== 'undefined' && product ? `/products/${product._id}?_method=PUT` : '/products' %>">
+                <!-- SỬA LẠI FORM - QUAN TRỌNG -->
+                <% if (typeof product !== 'undefined' && product) { %>
+                <form method="POST" action="/products/<%= product._id %>">
+                    <input type="hidden" name="_method" value="PUT">
+                <% } else { %>
+                <form method="POST" action="/products">
+                <% } %>
+                    
                     <div class="mb-3">
                         <label for="name" class="form-label">Tên sản phẩm</label>
                         <input type="text" class="form-control" id="name" name="name" value="<%= typeof product !== 'undefined' && product ? product.name : '' %>" required>

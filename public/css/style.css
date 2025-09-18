@@ -736,3 +736,45 @@ footer {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
 }
+/* Debug styles */
+.dropdown-menu.show {
+    display: block !important;
+    border: 2px solid red !important;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
+/* Đảm bảo dropdown hiển thị đúng */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+/* Dropdown bằng CSS hover */
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar-nav .dropdown-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 150px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .navbar-nav .dropdown:hover .dropdown-menu {
+        position: static;
+        display: block;
+    }
+}

@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="/">SupplierPro</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -19,22 +19,22 @@
                     </li>
                     <% } %>
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <% if (user) { %>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <%= user.username %>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            👤 <%= user.username %>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/auth/logout">Đăng xuất</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/auth/logout">🚪 Đăng xuất</a></li>
                         </ul>
                     </li>
                     <% } else { %>
                     <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Đăng nhập</a>
+                        <a class="nav-link" href="/auth/login">🔐 Đăng nhập</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/auth/register">Đăng ký</a>
+                        <a class="nav-link" href="/auth/register">📝 Đăng ký</a>
                     </li>
                     <% } %>
                 </ul>

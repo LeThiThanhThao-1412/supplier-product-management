@@ -1,0 +1,29 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0"><%= typeof supplier !== 'undefined' && supplier ? 'Chỉnh sửa' : 'Thêm mới' %> nhà cung cấp</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="<%= typeof supplier !== 'undefined' && supplier ? `/suppliers/${supplier._id}?_method=PUT` : '/suppliers' %>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên nhà cung cấp</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%= typeof supplier !== 'undefined' && supplier ? supplier.name : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <textarea class="form-control" id="address" name="address" rows="3" required><%= typeof supplier !== 'undefined' && supplier ? supplier.address : '' %></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" value="<%= typeof supplier !== 'undefined' && supplier ? supplier.phone : '' %>" required>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/suppliers" class="btn btn-secondary me-md-2">Hủy</a>
+                        <button type="submit" class="btn btn-primary"><%= typeof supplier !== 'undefined' && supplier ? 'Cập nhật' : 'Thêm mới' %></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

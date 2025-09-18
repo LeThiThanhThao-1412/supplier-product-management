@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0"><%= typeof product !== 'undefined' && product ? 'Chỉnh sửa' : 'Thêm mới' %> sản phẩm</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="<%= typeof product !== 'undefined' && product ? `/products/${product._id}?_method=PUT` : '/products' %>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%= typeof product !== 'undefined' && product ? product.name : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price" value="<%= typeof product !== 'undefined' && product ? product.price : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Số lượng</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="<%= typeof product !== 'undefined' && product ? product.quantity : '' %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplier" class="form-label">Nhà cung cấp</label>
+                        <select class="form-select" id="supplier" name="supplier" required>
+                            <option value="">Chọn nhà cung cấp</option>
+                            <% suppliers.forEach(supplier => { %>
+                            <option value="<%= supplier._id %>" 
+                                <%= (typeof product !== 'undefined' && product && product.supplier && product.supplier.toString() === supplier._id.toString()) ? 'selected' : '' %>>
+                                <%= supplier.name %>
+                            </option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/products" class="btn btn-secondary me-md-2">Hủy</a>
+                        <button type="submit" class="btn btn-primary"><%= typeof product !== 'undefined' && product ? 'Cập nhật' : 'Thêm mới' %></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1 class="display-4">Chào mừng đến với SupplierPro</h1>
+        <p class="lead">Hệ thống quản lý nhà cung cấp và sản phẩm chuyên nghiệp</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Thống kê</h5>
+                <p class="card-text mb-1">Số sản phẩm: <strong><%= productCount %></strong></p>
+                <p class="card-text">Số nhà cung cấp: <strong><%= supplierCount %></strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Tìm kiếm sản phẩm</h5>
+    </div>
+    <div class="card-body">
+        <form method="GET" action="/" class="row g-3">
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="search" placeholder="Tên sản phẩm..." value="<%= typeof query !== 'undefined' && query.search ? query.search : '' %>">
+            </div>
+            <div class="col-md-5">
+                <select class="form-select" name="supplier">
+                    <option value="">Tất cả nhà cung cấp</option>
+                    <% suppliers.forEach(supplier => { %>
+                    <option value="<%= supplier._id %>" 
+                        <%= (typeof query !== 'undefined' && query.supplier && query.supplier == supplier._id.toString()) ? 'selected' : '' %>>
+                        <%= supplier.name %>
+                    </option>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Danh sách sản phẩm</h5>
+        <% if (user) { %>
+        <a href="/products/new" class="btn btn-success btn-sm">Thêm sản phẩm</a>
+        <% } %>
+    </div>
+    <div class="card-body">
+        <% if (products.length > 0) { %>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Nhà cung cấp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.price.toLocaleString('vi-VN') %> VNĐ</td>
+                        <td><%= product.quantity %></td>
+                        <td><%= product.supplier.name %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <% } else { %>
+        <p class="text-center text-muted">Không có sản phẩm nào.</p>
+        <% } %>
+    </div>
+</div>
